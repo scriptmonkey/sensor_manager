@@ -17,3 +17,18 @@ en:
 
   titles:
     application: Sensor manager
+
+  simple_form:
+    labels:
+      defaults:
+        submit: Save
+
+  views:
+    home:
+      link:
+        ds18b20_create: New DS18B20 Temp Sensor
+    generic:
+      buttons:
+        save: Save
+    ds18b20s:
+      new: New DS18B20 Temp Sensor
