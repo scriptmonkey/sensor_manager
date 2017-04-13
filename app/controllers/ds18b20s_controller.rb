@@ -11,6 +11,10 @@ class Ds18b20sController < ApplicationController
     redirect_to home_path
   end
 
+  def show
+    @ds18b20 = Ds18b20.find(params[:id])
+  end
+
   private
 
   def ds18b20_params
