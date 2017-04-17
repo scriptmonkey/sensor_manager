@@ -1,8 +1,5 @@
 <%= I18n.t('views.ds18b20s.new') %>
 
 <%= simple_form_for @ds18b20 do |form| %>
-  <%= form.input :name %>
-  <%= form.input :path %>
-  <%= form.input :file %>
-  <%= form.button :submit, I18n.t("views.generic.buttons.save") %>
+  <%= render "form", form: form%>
 <% end %>
