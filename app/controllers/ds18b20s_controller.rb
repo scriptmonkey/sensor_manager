@@ -15,6 +15,17 @@ class Ds18b20sController < ApplicationController
     @ds18b20 = Ds18b20.find(params[:id])
   end
 
+  def edit
+    @ds18b20 = Ds18b20.find(params[:id])
+  end
+
+  def update
+    ds18b20 = Ds18b20.find(params[:id])
+    ds18b20.update_attributes(ds18b20_params)
+    redirect_to home_path
+
+  end
+
   private
 
   def ds18b20_params
