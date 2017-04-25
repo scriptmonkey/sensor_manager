@@ -30,6 +30,38 @@ feature 'Visitor' do
     expect(page).to have_content('50')
   end
 
+  scenario 'edits and exsting ds18b20 and does not include a tailing /' do
+    sensor = create(:ds18b20)
+    visit '/'
+    click_link(sensor.name)
+    click_link('edit')
+    fill_in 'ds18b20_name', with: 'sensor2'
+    fill_in 'ds18b20_path', with: '/bad/path'
+    click_button I18n.t('views.generic.buttons.save')
+
+    expect(page).to have_current_path(edit_ds18b20_path(sensor))
+
+  end
+
+  scenario 'provides a bad file and/or path' do
+    sensor = build(:ds18b20)
+    sensor.file='bad_file'
+
+    create_ds18b20(sensor)
+    click_link('sensor1')
+
+    expect(page).to have_content('-256')
+  end
+
+  scenario 'does not provide a trailing / for the path' do
+    sensor = build(:ds18b20)
+    sensor.path.chop!
+    create_ds18b20(sensor)
+
+    expect(page).to have_current_path(new_ds18b20_path)
+
+  end
+
   private
 
   def create_ds18b20(sensor)
