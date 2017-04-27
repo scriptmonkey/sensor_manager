@@ -4,32 +4,55 @@ class Ds18b20 < ApplicationRecord
     with: /\/\z/,
     message: 'Path must end with a /'
   }
-  def read_file
+
+  def creading
     if File.exist?(path + file)
-      sensor = File.read(path + file).chomp
+      get_temp
     else
       return -256
     end
-
-    lines = sensor.lines
-    if lines[0].include? 'YES'
-      string_temp = lines[1].split('=')[1]
-      string_temp.to_f/1000
-    else
-      return -255
-    end
-
-  end
-  def creading
-    read_file
   end
 
   def freading
     if creading <= -250
-      creading 
+      creading
     else
-      ctemp=creading.to_f*1.8+32
-      ctemp.to_s
+      ctemp=creading*1.8+32
+    end
+  end
+
+  private
+
+  def sensor_file_lines
+    sensor_file = File.read(path + file).chomp
+    sensor_file.lines
+  end
+
+  def line1
+    sensor_file_lines[0]
+  end
+
+  def line2
+    sensor_file_lines[1]
+  end
+
+  def valid_crc?
+    if line1.include? 'YES'
+      true
+    else
+      false
+    end
+  end
+
+  def raw_temp
+      line2.split('=')[1]
+  end
+
+  def get_temp
+    if valid_crc?
+      raw_temp.to_f/1000
+    else
+      return -255
     end
   end
 end
