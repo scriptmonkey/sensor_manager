@@ -6,6 +6,9 @@ RSpec.describe Ds18b20, type: :model do
   it {should respond_to :file}
   it {should respond_to :creading }
   it {should respond_to :freading }
+  it {should validate_presence_of :file }
+  it {should validate_presence_of :path }
+  it {should validate_presence_of :name }
 
   context 'has a file to read' do
     it 'expects a temp reading from sensor1.txt' do

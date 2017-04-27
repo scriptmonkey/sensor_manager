@@ -1,12 +1,13 @@
 <h1>
   Sensor Manager
-  <p>
-  
-  <%= link_to I18n.t("views.home.link.ds18b20_create"), new_ds18b20_path%>
-  <p>
- 
-  <% @sensors = Ds18b20.all %>
-  <% @sensors.each do |s| %>
-    <%= link_to s.name, ds18b20_path(s) %>
-  <% end %>
 </h1>
+<p>
+
+<%= link_to I18n.t("views.home.link.ds18b20_create"), new_ds18b20_path%>
+<p>
+<h2> Sensors list:</h2>
+<% @sensors = Ds18b20.all %>
+<% @sensors.each do |s| %>
+  <%= link_to s.name, ds18b20_path(s) %>
+  <p>
+<% end %>

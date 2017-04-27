@@ -4,6 +4,9 @@ class Ds18b20 < ApplicationRecord
     with: /\/\z/,
     message: 'Path must end with a /'
   }
+  validates :file, presence: true
+  validates :path, presence: true
+  validates :name, presence: true
 
   def creading
     if File.exist?(path + file)

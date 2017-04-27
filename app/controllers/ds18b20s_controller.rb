@@ -11,6 +11,11 @@ class Ds18b20sController < ApplicationController
       temp_sensor.save
       redirect_to home_path
     else
+      if temp_sensor.path.empty? or temp_sensor.file.empty?
+        flash[:error] = 'Something is missing' + temp_sensor.path
+      else
+        flash[:error]  = 'Path must have trailing /'
+      end
       redirect_to new_ds18b20_path
     end
   end
@@ -29,6 +34,11 @@ class Ds18b20sController < ApplicationController
     if temp_sensor.valid?
       redirect_to home_path
     else
+      if temp_sensor.path.empty? or temp_sensor.file.empty?
+        flash[:error] = 'Something is missing' + temp_sensor.path
+      else
+        flash[:error]  = 'Path must have trailing /'
+      end
       redirect_to edit_ds18b20_path(temp_sensor)
     end
   end
